@@ -1,0 +1,2 @@
+# test_postgres_julia
+JuliaとPostgreSQL環境構築テスト
