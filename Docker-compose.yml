@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile_postgre
+    networks:
+      your_network:
+        ipv4_address: 172.18.0.2
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "user"
+      POSTGRES_PASSWORD: "postgres"
+#tty: true
+    stdin_open: true
+
+  julia_server:
+    networks:
+      your_network:
+        ipv4_address: 172.18.0.3
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+networks:
+  your_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
